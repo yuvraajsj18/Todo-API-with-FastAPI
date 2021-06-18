@@ -87,7 +87,7 @@ class Item(BaseModel):
     tax: Optional[float] = None
 
 
-@app.post("/items/")
+@app.post("/items/", response_model=Item)
 async def create_item(item: Item):
     items.append({"item_id": len(items), **item.dict()})
     return items[-1]
