@@ -1,5 +1,5 @@
 from typing import Optional
-from fastapi import Body, FastAPI, HTTPException, Path, Query
+from fastapi import Body, Depends, FastAPI, HTTPException, Path, Query
 from pydantic import BaseModel, Field
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -57,6 +57,24 @@ items = [
     },
 ]
 
+users = [
+    {
+        "id": 0,
+        "username": "user1",
+        "hashed_password": "somecrypticpassword1",
+    },
+    {
+        "id": 1,
+        "username": "user2",
+        "hashed_password": "somecrypticpassword2",
+    },
+    {
+        "id": 2,
+        "username": "user2",
+        "hashed_password": "somecrypticpassword2",
+    },
+]
+
 
 @app.get("/items/{item_id}")
 async def get_item(item_id: int = Path(..., ge=0)):
@@ -66,9 +84,24 @@ async def get_item(item_id: int = Path(..., ge=0)):
     return {"Error": f"item_id {item_id} not found."}
 
 
+async def common_parameters(skip: int = 0, limit: int = 10):
+    return {"skip": skip, "limit": limit}
+
+
+class CommonQueryParams:
+    def __init__(self, skip: int = 0, limit: int = 10):
+        self.skip = skip
+        self.limit = limit
+
+
 @app.get("/items/")
-async def read_items(skip: int = 0, limit: int = 10):
-    return items[skip : skip + limit]
+async def read_items(commons: CommonQueryParams = Depends(CommonQueryParams)):
+    return items[commons.skip : commons.skip + commons.limit]
+
+
+@app.get("/users/")
+async def read_users(commons: CommonQueryParams = Depends(CommonQueryParams)):
+    return items[commons.skip : commons.skip + commons.limit]
 
 
 @app.get("/greet")
