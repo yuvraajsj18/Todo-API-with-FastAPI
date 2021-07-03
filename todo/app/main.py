@@ -1,10 +1,8 @@
 from fastapi import FastAPI
 
-from app.routers import todos
+from app.routers import users
 
 app = FastAPI()
-
-app.include_router(todos.router)
 
 
 @app.get("/")
