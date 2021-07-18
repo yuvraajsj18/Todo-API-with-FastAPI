@@ -6,9 +6,8 @@ from dotenv import load_dotenv
 from fastapi import HTTPException, status
 from jose import JWTError, jwt
 from passlib.context import CryptContext
-from sqlalchemy.orm import Session
 
-from app import crud, schemas
+from app import schemas
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -51,17 +50,8 @@ def decode_access_token(token: str):
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception
-        token_data = schemas.token.TokenData(username=username)
+        token_data = schemas.TokenData(username=username)
     except JWTError:
         raise credentials_exception
 
     return token_data.username
-
-
-def authenticate_user(db: Session, username: str, password: str):
-    user = crud.get_user_by_username(db, username)
-    if not user:
-        return False
-    if not verify_password(password, user.hashed_password):
-        return False
-    return user
