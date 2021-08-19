@@ -1,0 +1,12 @@
+{
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": false,
+  "python.linting.mypyEnabled": true,
+  "python.pythonPath": "/usr/bin/python3",
+  "python.analysis.extraPaths": [
+    "/home/yuvraajsj18/work/CS/Workspace/Todo-API-with-FastAPI/Todo-API-with-FastAPI/todo/env/lib/python3.8/site-packages"
+  ],
+  "python.autoComplete.addBrackets": true,
+  "C_Cpp.autocompleteAddParentheses": true,
+  "python.analysis.completeFunctionParens": true
+}
