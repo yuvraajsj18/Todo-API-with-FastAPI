@@ -4,7 +4,7 @@ from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
-from app import crud, models, schemas, security
+from app import crud, schemas, security
 from app.db import base
 from app.db.database import engine
 from app.dependency import get_db

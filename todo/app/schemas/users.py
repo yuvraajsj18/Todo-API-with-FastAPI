@@ -1,6 +1,5 @@
 from typing import List
 from pydantic import BaseModel
-from app import schemas
 
 
 class UserBase(BaseModel):
