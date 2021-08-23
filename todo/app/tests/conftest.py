@@ -2,7 +2,7 @@ from typing import Dict, Generator
 
 import pytest
 from app import models
-from app.db.database import Base, SessionLocal
+from app.db.database import Base
 from app.dependency import get_db
 from app.main import app
 from fastapi.testclient import TestClient
